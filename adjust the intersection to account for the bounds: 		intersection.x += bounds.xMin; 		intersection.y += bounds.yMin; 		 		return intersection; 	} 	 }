@@ -3,4 +3,6 @@
 		mat.tx -= bounds.xMin;
 		mat.ty -= bounds.yMin;
 		img.draw(p_clip1,mat, new ColorTransform(1,1,1,1,255,-255,-255,p_alphaTolerance));
+		
+//Jeremy edit 2
 
