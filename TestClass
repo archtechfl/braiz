@@ -1,0 +1,55 @@
+package flash_test_classes {
+	
+	import flash.display.*;
+	import flash.events.*;
+	import flash.utils.*;
+	import flash.net.*;
+	
+	public class TestClass extends MovieClip {
+		
+		private var myLoader:Loader;
+		private var bitmapData:BitmapData;
+		private var bmVis:Bitmap;
+		
+		public function TestClass() {
+			// constructor code
+			
+		myLoader = new Loader();
+		myLoader.load(new URLRequest("image_analysis-test_1_image.gif"));
+		myLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, onComplete);
+			
+		}
+		
+		private function onComplete (e:Event):void
+		{
+			trace("loaded!");
+			bitmapData = e.target.content.bitmapData;
+			bmVis = new Bitmap(bitmapData);
+			this.addChild(bmVis);
+			pictureAnalysis();
+		}
+		
+		private function pictureAnalysis():void {
+			trace("arrived at analysis");
+			for (var j = 0; j < bmVis.width; j++) {
+				for (var k = 0; k < bmVis.height; k++) {
+					// Read the pixel color
+					var color:uint = bmVis.getPixel(j, k);
+			
+					// Read color channel values
+					var alpha:uint = color >> 24 & 0xFF;
+					var red:uint   = color >> 16 & 0xFF;
+					var green:uint = color >> 8 & 0xFF;
+					var blue:uint  = color & 0xFF;
+			
+					// Reassemble the color
+					trace("color: 0x" + red.toString(16) + green.toString(16) + blue.toString(16));
+					trace("alpha: 0x" + alpha.toString(16));
+				}
+				}
+				
+		}//end of picture analysis
+		
+	}//end of class
+	
+}//end of package
